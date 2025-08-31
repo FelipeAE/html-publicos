@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Priorización de Hallazgos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            color: #2c5234;
+            margin-bottom: 10px;
+        }
+        .matriz-container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .matriz {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            margin: 0 auto;
+            border: 2px solid #333;
+        }
+        .eje-vertical {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #666;
+            transform: translateX(-50%);
+        }
+        .eje-horizontal {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #666;
+            transform: translateY(-50%);
+        }
+        .label {
+            position: absolute;
+            font-weight: bold;
+            color: #333;
+        }
+        .label-impacto-positivo {
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .label-impacto-negativo {
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .label-complejo-negativo {
+            left: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .label-complejo-positivo {
+            right: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .insight {
+            position: absolute;
+            width: 120px;
+            height: 80px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 11px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .insight:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        .insight1 {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            top: 40px;
+            right: 40px;
+        }
+        .insight2 {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            top: 80px;
+            left: 120px;
+        }
+        .insight3 {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            bottom: 80px;
+            right: 80px;
+        }
+        .insight4 {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            top: 20px;
+            right: 160px;
+        }
+        .cuadrante-prioritario {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 50%;
+            background: rgba(46, 204, 113, 0.1);
+            border: 3px dashed #2ecc71;
+            border-left: none;
+            border-bottom: none;
+        }
+        .cuadrante-label {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #2ecc71;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .leyenda {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .insight-detalle {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .insight-titulo {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        .evaluacion {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .evaluacion span {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .alta { background: #e74c3c; color: white; }
+        .media { background: #f39c12; color: white; }
+        .justificacion {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+        }
+        .conclusion {
+            background: #e8f5e8;
+            padding: 20px;
+            border-left: 4px solid #4CAF50;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .conclusion h3 {
+            color: #2c5234;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>INSTRUMENTO | 1.1.4.3</h1>
+        <h2>Mapa de Priorización de Hallazgos</h2>
+        <p><em>Matriz Complejidad vs Impacto - Plataformas Digitales Climáticas La Araucanía</em></p>
+    </div>
+
+    <div class="matriz-container">
+        <div class="matriz">
+            <!-- Ejes -->
+            <div class="eje-vertical"></div>
+            <div class="eje-horizontal"></div>
+            
+            <!-- Labels de los ejes -->
+            <div class="label label-impacto-positivo">(+) Impacto</div>
+            <div class="label label-impacto-negativo">(-) Impacto</div>
+            <div class="label label-complejo-negativo">(-) Complejo</div>
+            <div class="label label-complejo-positivo">(+) Complejo</div>
+            
+            <!-- Cuadrante prioritario -->
+            <div class="cuadrante-prioritario">
+                <div class="cuadrante-label">ZONA PRIORITARIA</div>
+            </div>
+            
+            <!-- Insights posicionados -->
+            <div class="insight insight1" title="Alertas Tempranas Críticas">
+                ALERTAS<br>TEMPRANAS<br>CRÍTICAS
+            </div>
+            
+            <div class="insight insight2" title="Comunicación Híbrida Inclusiva">
+                COMUNICACIÓN<br>HÍBRIDA<br>INCLUSIVA
+            </div>
+            
+            <div class="insight insight3" title="Tecnología Accesible Rural">
+                TECNOLOGÍA<br>ACCESIBLE<br>RURAL
+            </div>
+            
+            <div class="insight insight4" title="Confianza y Co-creación">
+                CONFIANZA<br>Y<br>CO-CREACIÓN
+            </div>
+        </div>
+
+        <div class="conclusion">
+            <h3>🎯 INSIGHTS PRIORIZADOS - Cuadrante (+) Complejo y (+) Impacto</h3>
+            <p><strong>Los 3 insights en la zona prioritaria son:</strong></p>
+            <ul>
+                <li><strong>Alertas Tempranas Críticas:</strong> Máxima complejidad técnica pero impacto directo en prevención de daños</li>
+                <li><strong>Tecnología Accesible Rural:</strong> Complejidad alta de desarrollo pero esencial para funcionalidad</li>
+                <li><strong>Confianza y Co-creación:</strong> Complejidad social/cultural alta pero determinante del éxito</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="leyenda">
+        <div class="insight-detalle">
+            <div class="insight-titulo">🚨 INSIGHT 1: Alertas Tempranas Críticas</div>
+            <div class="evaluacion">
+                <span>Complejidad:</span>
+                <span class="alta">ALTA</span>
+            </div>
+            <div class="evaluacion">
+                <span>Impacto:</span>
+                <span class="alta">ALTO</span>
+            </div>
+            <div class="justificacion">
+                <strong>Complejidad:</strong> Requiere integración de datos meteorológicos, sistemas de predicción avanzada, infraestructura tecnológica robusta y coordinación interinstitucional.<br>
+                <strong>Impacto:</strong> Puede prevenir daños significativos en infraestructura crítica (agua, electricidad) y proteger vidas humanas.
+            </div>
+        </div>
+
+        <div class="insight-detalle">
+            <div class="insight-titulo">📢 INSIGHT 2: Comunicación Híbrida Inclusiva</div>
+            <div class="evaluacion">
+                <span>Complejidad:</span>
+                <span class="media">MEDIA</span>
+            </div>
+            <div class="evaluacion">
+                <span>Impacto:</span>
+                <span class="alta">ALTO</span>
+            </div>
+            <div class="justificacion">
+                <strong>Complejidad:</strong> Combinar canales digitales y tradicionales es desafiante pero más implementable que sistemas técnicos complejos.<br>
+                <strong>Impacto:</strong> Garantiza que información crítica llegue a toda la comunidad, reduciendo vulnerabilidades por falta de comunicación.
+            </div>
+        </div>
+
+        <div class="insight-detalle">
+            <div class="insight-titulo">📱 INSIGHT 3: Tecnología Accesible Rural</div>
+            <div class="evaluacion">
+                <span>Complejidad:</span>
+                <span class="alta">ALTA</span>
+            </div>
+            <div class="evaluacion">
+                <span>Impacto:</span>
+                <span class="alta">ALTO</span>
+            </div>
+            <div class="justificacion">
+                <strong>Complejidad:</strong> Desarrollar para conectividad limitada, múltiples tipos de dispositivos y diferentes niveles de alfabetización digital.<br>
+                <strong>Impacto:</strong> Sin accesibilidad tecnológica real, la plataforma completa fallaría en el contexto rural de La Araucanía.
+            </div>
+        </div>
+
+        <div class="insight-detalle">
+            <div class="insight-titulo">🤝 INSIGHT 4: Confianza y Co-creación</div>
+            <div class="evaluacion">
+                <span>Complejidad:</span>
+                <span class="alta">ALTA</span>
+            </div>
+            <div class="evaluacion">
+                <span>Impacto:</span>
+                <span class="alta">ALTO</span>
+            </div>
+            <div class="justificacion">
+                <strong>Complejidad:</strong> Requiere procesos participativos extensos, cambio cultural, integración respetuosa de conocimientos locales y científicos.<br>
+                <strong>Impacto:</strong> Determinante absoluto del éxito o fracaso de toda la iniciativa de tecnología cívica.
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Integrantes:</strong> Grupo 5 | <strong>Curso:</strong> Innovación y Emprendimiento III | <strong>Profesor:</strong> Gonzalo Andrés Arias Sanhueza</p>
+        <p><em>Fuente: Elaboración propia (2019)</em></p>
+    </div>
+</body>
+</html>
