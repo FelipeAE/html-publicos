@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz de Categorización de Hallazgos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            color: #2c5234;
+            margin-bottom: 10px;
+        }
+        .matriz-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .insight-column {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-height: 600px;
+        }
+        .insight-header {
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .insight-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 50px);
+        }
+        .descripcion-section {
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .descripcion-title {
+            background: #e8f5e8;
+            padding: 8px;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            color: #2c5234;
+            font-size: 0.8em;
+        }
+        .descripcion-content {
+            padding: 10px;
+            background: #f8f9fa;
+            border-left: 3px solid #4CAF50;
+            border-radius: 4px;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+        .citas-section {
+            flex: 1.5;
+        }
+        .citas-title {
+            background: #fff3e0;
+            padding: 8px;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            color: #e65100;
+            font-size: 0.8em;
+        }
+        .cita {
+            background: #e3f2fd;
+            padding: 8px;
+            margin: 8px 0;
+            border-left: 3px solid #2196f3;
+            border-radius: 4px;
+            font-style: italic;
+            font-size: 0.8em;
+            line-height: 1.3;
+        }
+        .fuente {
+            font-size: 0.7em;
+            color: #666;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+        }
+        @media (max-width: 1200px) {
+            .matriz-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .matriz-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>INSTRUMENTO | 1.1.4.2</h1>
+        <h2>Matriz de Categorización de Hallazgos</h2>
+        <p><em>Plataformas digitales colaborativas para riesgos climáticos - La Araucanía</em></p>
+    </div>
+
+    <div class="matriz-container">
+        <!-- INSIGHT 1 -->
+        <div class="insight-column">
+            <div class="insight-header">
+                INSIGHT 1:<br>
+                Alertas Tempranas Críticas
+            </div>
+            <div class="insight-content">
+                <div class="descripcion-section">
+                    <div class="descripcion-title">DESCRIPCIÓN</div>
+                    <div class="descripcion-content">
+                        Los sistemas actuales de gestión de riesgos climáticos son reactivos en lugar de preventivos. Las comunidades enfrentan eventos extremos sin anticipación suficiente, causando daños significativos en infraestructura crítica (agua, electricidad, viviendas). Se necesita un sistema de alerta temprana que permita preparación y respuesta proactiva ante eventos climáticos.
+                    </div>
+                </div>
+                
+                <div class="citas-section">
+                    <div class="citas-title">REFLEXIONES / CITAS CLAVE</div>
+                    
+                    <div class="cita">
+                        "El problema que más le quita el sueño o que se repite todos los años"
+                        <div class="fuente">- Entrevista Usuario APR</div>
+                    </div>
+                    
+                    <div class="cita">
+                        "Turbidez por lluvias, sequía estival, problemas con bombas y estanques"
+                        <div class="fuente">- Preparación Entrevista Usuario</div>
+                    </div>
+                    
+                    <div class="cita">
+                        "Viviendas con graves daños debido a la voladura de techos, interrupciones en el suministro eléctrico de hasta días"
+                        <div class="fuente">- Antecedentes del Desafío</div>
+                    </div>
+
+                    <div class="cita">
+                        "Si pudiera tener una 'bola de cristal' que le diera una sola información clave para evitar estos problemas, ¿qué le gustaría que le dijera y con cuánta anticipación?"
+                        <div class="fuente">- Preguntas Clave Usuario</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INSIGHT 2 -->
+        <div class="insight-column">
+            <div class="insight-header">
+                INSIGHT 2:<br>
+                Comunicación Híbrida Inclusiva
+            </div>
+            <div class="insight-content">
+                <div class="descripcion-section">
+                    <div class="descripcion-title">DESCRIPCIÓN</div>
+                    <div class="descripcion-content">
+                        Los canales de comunicación actuales son fragmentados e informales (WhatsApp, llamadas, puerta a puerta), generando brechas donde algunos miembros de la comunidad no reciben información crítica. Se requiere una estrategia de comunicación que combine herramientas digitales con métodos tradicionales para asegurar que todos los vecinos reciban alertas y puedan participar activamente.
+                    </div>
+                </div>
+                
+                <div class="citas-section">
+                    <div class="citas-title">REFLEXIONES / CITAS CLAVE</div>
+                    
+                    <div class="cita">
+                        "¿Cuál es el primer paso que da para avisarle a todos los vecinos? ¿Qué herramientas usa, un grupo de WhatsApp, llamados, puerta a puerta?"
+                        <div class="fuente">- Preguntas Clave Usuario</div>
+                    </div>
+                    
+                    <div class="cita">
+                        "¿Cuál es la parte más difícil o dónde siente que el mensaje no llega a todos por igual?"
+                        <div class="fuente">- Preguntas Clave Usuario</div>
+                    </div>
+                    
+                    <div class="cita">
+                        "Barreras y facilitadores comunitarios, interfaces inclusivas, experiencias exitosas"
+                        <div class="fuente">- Preparación Entrevista Experto</div>
+                    </div>
+
+                    <div class="cita">
+                        "¿Qué mecanismos de participación digital ha visto que generen un compromiso real y sostenido en el tiempo?"
+                        <div class="fuente">- Preguntas Clave Experto</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INSIGHT 3 -->
+        <div class="insight-column">
+            <div class="insight-header">
+                INSIGHT 3:<br>
+                Tecnología Accesible Rural
+            </div>
+            <div class="insight-content">
+                <div class="descripcion-section">
+                    <div class="descripcion-title">DESCRIPCIÓN</div>
+                    <div class="descripcion-content">
+                        Las limitaciones de conectividad rural y la diversidad de dispositivos tecnológicos (desde básicos hasta smartphones) requieren soluciones técnicas específicamente adaptadas. La plataforma debe funcionar con conexiones intermitentes, ser accesible para diferentes edades y niveles de alfabetización digital, y optimizada para dispositivos de gama baja para garantizar inclusión digital real.
+                    </div>
+                </div>
+                
+                <div class="citas-section">
+                    <div class="citas-title">REFLEXIONES / CITAS CLAVE</div>
+                    
+                    <div class="cita">
+                        "Para una plataforma SIG colaborativa en zonas rurales con conectividad limitada como La Araucanía, ¿cuáles son los 2 o 3 requerimientos técnicos no negociables?"
+                        <div class="fuente">- Preguntas Clave Experto</div>
+                    </div>
+                    
+                    <div class="cita">
+                        "Diseño centrado en usuario rural, accesibilidad para diferentes edades, adaptación a dispositivos básicos"
+                        <div class="fuente">- Preparación Entrevista Experto</div>
+                    </div>
+                    
+                    <div class="cita">
+                        "¿Deberíamos priorizar una app móvil, una web simple, o incluso integración con WhatsApp?"
+                        <div class="fuente">- Preguntas Clave Experto</div>
+                    </div>
+
+                    <div class="cita">
+                        "¿Usa alguna aplicación en su celular que le facilite el trabajo, aunque no sea para el tema del agua?"
+                        <div class="fuente">- Preguntas Clave Usuario</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INSIGHT 4 -->
+        <div class="insight-column">
+            <div class="insight-header">
+                INSIGHT 4:<br>
+                Confianza y Co-creación
+            </div>
+            <div class="insight-content">
+                <div class="descripcion-section">
+                    <div class="descripcion-title">DESCRIPCIÓN</div>
+                    <div class="descripcion-content">
+                        El éxito de plataformas de tecnología cívica depende fundamentalmente de generar confianza comunitaria y integrar respetuosamente el conocimiento local con información técnica-científica. Las barreras de confianza son la principal causa de fracaso de estos proyectos. Se requieren procesos participativos de co-creación donde la comunidad no solo use la herramienta, sino que participe en su diseño y validación.
+                    </div>
+                </div>
+                
+                <div class="citas-section">
+                    <div class="citas-title">REFLEXIONES / CITAS CLAVE</div>
+                    
+                    <div class="cita">
+                        "¿Qué enfoques participativos recomendaría para equilibrar el conocimiento técnico con la percepción local sin que uno domine al otro?"
+                        <div class="fuente">- Preguntas Clave Experto</div>
+                    </div>
+                    
+                    <div class="cita">
+                        "¿Cuál es la barrera comunitaria o de confianza más común que hace fracasar este tipo de proyectos de 'tecnología cívica'?"
+                        <div class="fuente">- Preguntas Clave Experto</div>
+                    </div>
+                    
+                    <div class="cita">
+                        "¿Qué sería lo más importante para que usted y los vecinos confíen en ella y la usen de verdad? ¿Y qué cosas harían que la dejen de usar al segundo día?"
+                        <div class="fuente">- Preguntas Clave Usuario</div>
+                    </div>
+
+                    <div class="cita">
+                        "¿Cuál es el mayor desafío al intentar integrar el conocimiento científico con el conocimiento local o ancestral en una única plataforma?"
+                        <div class="fuente">- Preguntas Clave Experto</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Integrantes:</strong> Grupo 5 | <strong>Curso:</strong> Innovación y Emprendimiento III | <strong>Profesor:</strong> Gonzalo Andrés Arias Sanhueza</p>
+        <p><em>Fuente: Elaboración propia (2019)</em></p>
+    </div>
+</body>
+</html>
