@@ -3,321 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Priorización de Hallazgos</title>
+    <title>Matriz de Antecedentes</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
             background-color: #f5f5f5;
         }
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .header h1 {
-            color: #2c5234;
-            margin-bottom: 10px;
-        }
-        .matriz-container {
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        .matriz {
-            position: relative;
-            width: 600px;
-            height: 600px;
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
-            border: 2px solid #333;
-        }
-        .eje-vertical {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #666;
-            transform: translateX(-50%);
-        }
-        .eje-horizontal {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: #666;
-            transform: translateY(-50%);
-        }
-        .label {
-            position: absolute;
-            font-weight: bold;
-            color: #333;
-        }
-        .label-impacto-positivo {
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .label-impacto-negativo {
-            bottom: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .label-complejo-negativo {
-            left: -80px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        .label-complejo-positivo {
-            right: -80px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        .insight {
-            position: absolute;
-            width: 120px;
-            height: 80px;
+            background-color: white;
+            padding: 30px;
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-size: 11px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .insight:hover {
-            transform: scale(1.1);
-            z-index: 10;
-        }
-        .insight1 {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            top: 40px;
-            right: 40px;
-        }
-        .insight2 {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            top: 80px;
-            left: 120px;
-        }
-        .insight3 {
-            background: linear-gradient(135deg, #9b59b6, #8e44ad);
-            bottom: 80px;
-            right: 80px;
-        }
-        .insight4 {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            top: 20px;
-            right: 160px;
-        }
-        .cuadrante-prioritario {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 50%;
-            background: rgba(46, 204, 113, 0.1);
-            border: 3px dashed #2ecc71;
-            border-left: none;
-            border-bottom: none;
-        }
-        .cuadrante-label {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #2ecc71;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        .leyenda {
-            margin-top: 30px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        .insight-detalle {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .insight-titulo {
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #2c3e50;
-        }
-        .evaluacion {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-        .evaluacion span {
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        .alta { background: #e74c3c; color: white; }
-        .media { background: #f39c12; color: white; }
-        .justificacion {
-            font-size: 14px;
+        .header {
+            text-align: right;
+            margin-bottom: 20px;
             color: #666;
+            font-size: 14px;
+        }
+        .title-section {
+            margin-bottom: 30px;
+        }
+        .technique {
+            color: #8fbc8f;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .instrument {
+            color: #8fbc8f;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        .matrix-table th {
+            background-color: #e8f5e8;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid #8fbc8f;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .matrix-table td {
+            padding: 15px;
+            border: 1px solid #ccc;
+            vertical-align: top;
+            font-size: 12px;
             line-height: 1.4;
         }
-        .footer {
+        .case-header {
+            background-color: #f8f8f8;
+            font-weight: bold;
             text-align: center;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
             margin-top: 30px;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
+            font-size: 14px;
+            color: #666;
         }
-        .conclusion {
-            background: #e8f5e8;
-            padding: 20px;
-            border-left: 4px solid #4CAF50;
-            margin: 20px 0;
-            border-radius: 4px;
+        .logo {
+            color: #d32f2f;
+            font-weight: bold;
         }
-        .conclusion h3 {
-            color: #2c5234;
-            margin-top: 0;
+        .variable-header {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            min-width: 180px;
+            max-width: 180px;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>INSTRUMENTO | 1.1.4.3</h1>
-        <h2>Mapa de Priorización de Hallazgos</h2>
-        <p><em>Matriz Complejidad vs Impacto - Plataformas Digitales Climáticas La Araucanía</em></p>
-    </div>
+    <div class="container">
+        <div class="header">
+            INSTRUMENTO (B) | 1.1.5.1
+        </div>
+        
+        <div class="title-section">
+            <div class="technique">TÉCNICA |</div>
+            <div class="technique">Estudio comparativo de antecedentes</div>
+            <div class="instrument">Matriz de antecedentes</div>
+        </div>
 
-    <div class="matriz-container">
-        <div class="matriz">
-            <!-- Ejes -->
-            <div class="eje-vertical"></div>
-            <div class="eje-horizontal"></div>
-            
-            <!-- Labels de los ejes -->
-            <div class="label label-impacto-positivo">(+) Impacto</div>
-            <div class="label label-impacto-negativo">(-) Impacto</div>
-            <div class="label label-complejo-negativo">(-) Complejo</div>
-            <div class="label label-complejo-positivo">(+) Complejo</div>
-            
-            <!-- Cuadrante prioritario -->
-            <div class="cuadrante-prioritario">
-                <div class="cuadrante-label">ZONA PRIORITARIA</div>
+        <table class="matrix-table">
+            <thead>
+                <tr>
+                    <th style="width: 120px;"></th>
+                    <th class="variable-header">Variable 1:<br><strong>Tipo de Participación Ciudadana</strong></th>
+                    <th class="variable-header">Variable 2:<br><strong>Tecnología y Accesibilidad</strong></th>
+                    <th class="variable-header">Variable 3:<br><strong>Enfoque de Riesgos</strong></th>
+                    <th class="variable-header">Variable 4:<br><strong>Cobertura y Escalabilidad</strong></th>
+                    <th class="variable-header">Variable 5:<br><strong>Integración de Conocimientos</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="case-header">Caso 1:<br><strong>ARClim<br>(Chile)</strong></td>
+                    <td>• Participación nula<br>• Información unidireccional<br>• Solo consumo de datos<br>• No hay retroalimentación ciudadana</td>
+                    <td>• Plataforma web avanzada<br>• Requiere conectividad estable<br>• Interfaz técnica compleja<br>• Acceso gratuito</td>
+                    <td>• Riesgos climáticos científicos<br>• Proyecciones a 2050<br>• 12 sectores evaluados<br>• Enfoque predictivo</td>
+                    <td>• Cobertura nacional<br>• Resolución comunal<br>• Altamente escalable<br>• Institucional robusto</td>
+                    <td>• Solo conocimiento científico<br>• 103 investigadores<br>• 27 instituciones<br>• No integra saber local</td>
+                </tr>
+                <tr>
+                    <td class="case-header">Caso 2:<br><strong>iNaturalist<br>(Global)</strong></td>
+                    <td>• Participación masiva activa<br>• Crowdsourcing efectivo<br>• Comunidad de verificadores<br>• Contribución científica</td>
+                    <td>• App móvil intuitiva<br>• IA para identificación<br>• Funciona offline parcialmente<br>• Gratuito y accesible</td>
+                    <td>• Enfoque en biodiversidad<br>• No riesgos climáticos directos<br>• Monitoreo ambiental<br>• Observaciones puntuales</td>
+                    <td>• Cobertura global<br>• 150M+ observaciones<br>• Altamente escalable<br>• Sostenible</td>
+                    <td>• Conocimiento ciudadano<br>• Validación por expertos<br>• No integra conocimiento ancestral<br>• Focus científico-técnico</td>
+                </tr>
+                <tr>
+                    <td class="case-header">Caso 3:<br><strong>Ushahidi<br>(Kenia)</strong></td>
+                    <td>• Crowdsourcing en crisis<br>• Reportes ciudadanos múltiples<br>• Verificación voluntaria<br>• Activismo social</td>
+                    <td>• Multi-canal (SMS, web, social)<br>• Diseño simple y robusto<br>• Open source adaptable<br>• Bajo costo</td>
+                    <td>• Crisis y conflictos<br>• Respuesta a emergencias<br>• Mapeo de incidentes<br>• Tiempo real</td>
+                    <td>• Usado en 30+ países<br>• Escalabilidad probada<br>• Adaptable localmente<br>• Dependiente de voluntarios</td>
+                    <td>• Conocimiento local fuerte<br>• Testimonios comunitarios<br>• Integración contextual<br>• Validación colaborativa</td>
+                </tr>
+                <tr>
+                    <td class="case-header">Caso 4:<br><strong>OpenStreetMap<br>(Global)</strong></td>
+                    <td>• Colaboración global masiva<br>• Edición comunitaria<br>• Verificación peer-to-peer<br>• Contribución voluntaria</td>
+                    <td>• Herramientas web y móvil<br>• Editores múltiples niveles<br>• Open source completo<br>• Infraestructura robusta</td>
+                    <td>• Cartografía general<br>• No específico para riesgos<br>• Base para otras aplicaciones<br>• Datos geográficos básicos</td>
+                    <td>• Cobertura global completa<br>• 10M+ usuarios registrados<br>• Altamente escalable<br>• Sostenible</td>
+                    <td>• Conocimiento geográfico local<br>• Mapping parties comunitarias<br>• No integra saberes ancestrales<br>• Focus cartográfico técnico</td>
+                </tr>
+                <tr>
+                    <td class="case-header">Caso 5:<br><strong>KoBoToolbox<br>(Harvard HHI)</strong></td>
+                    <td>• Recolección estructurada<br>• Encuestas dirigidas<br>• Participación limitada<br>• Enfoque profesional</td>
+                    <td>• Apps móviles robustas<br>• Funciona completamente offline<br>• Formularios personalizables<br>• Gratuito y open source</td>
+                    <td>• Emergencias humanitarias<br>• Evaluación de necesidades<br>• Monitoreo de programas<br>• Datos estructurados</td>
+                    <td>• 200K+ usuarios en 195 países<br>• Altamente escalable<br>• 5M envíos mensuales<br>• Institucional sólido</td>
+                    <td>• Conocimiento profesional<br>• Metodologías estandarizadas<br>• Limitada integración local<br>• Enfoque top-down</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <div>
+                <strong>Integrantes:</strong> Grupo 5<br>
+                <strong>Curso:</strong> Innovación y Emprendimiento III<br>
+                <strong>Profesor:</strong> Gonzalo Andrés Arias Sanhueza
             </div>
-            
-            <!-- Insights posicionados -->
-            <div class="insight insight1" title="Alertas Tempranas Críticas">
-                ALERTAS<br>TEMPRANAS<br>CRÍTICAS
-            </div>
-            
-            <div class="insight insight2" title="Comunicación Híbrida Inclusiva">
-                COMUNICACIÓN<br>HÍBRIDA<br>INCLUSIVA
-            </div>
-            
-            <div class="insight insight3" title="Tecnología Accesible Rural">
-                TECNOLOGÍA<br>ACCESIBLE<br>RURAL
-            </div>
-            
-            <div class="insight insight4" title="Confianza y Co-creación">
-                CONFIANZA<br>Y<br>CO-CREACIÓN
+            <div class="logo">
+                Inacap
             </div>
         </div>
 
-        <div class="conclusion">
-            <h3>🎯 INSIGHTS PRIORIZADOS - Cuadrante (+) Complejo y (+) Impacto</h3>
-            <p><strong>Los 3 insights en la zona prioritaria son:</strong></p>
-            <ul>
-                <li><strong>Alertas Tempranas Críticas:</strong> Máxima complejidad técnica pero impacto directo en prevención de daños</li>
-                <li><strong>Tecnología Accesible Rural:</strong> Complejidad alta de desarrollo pero esencial para funcionalidad</li>
-                <li><strong>Confianza y Co-creación:</strong> Complejidad social/cultural alta pero determinante del éxito</li>
+        <div style="margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-radius: 5px;">
+            <h3 style="color: #8fbc8f; margin-top: 0;">Análisis Comparativo - Oportunidades Identificadas:</h3>
+            <ul style="line-height: 1.6;">
+                <li><strong>Participación Ciudadana:</strong> Ushahidi e iNaturalist demuestran que es posible lograr participación masiva y sostenida</li>
+                <li><strong>Accesibilidad Tecnológica:</strong> KoBoToolbox y Ushahidi muestran soluciones robustas para conectividad limitada</li>
+                <li><strong>Integración de Conocimientos:</strong> Ningún caso integra efectivamente conocimiento científico, local y ancestral</li>
+                <li><strong>Enfoque en Riesgos:</strong> ARClim tiene datos científicos robustos pero carece de participación comunitaria</li>
+                <li><strong>Escalabilidad:</strong> OpenStreetMap e iNaturalist prueban que las plataformas colaborativas pueden escalar globalmente</li>
             </ul>
+            <p style="margin-bottom: 0; color: #666; font-style: italic;">
+                <strong>Conclusión:</strong> Existe una oportunidad clara para desarrollar una plataforma que integre lo mejor de cada antecedente: 
+                los datos científicos de ARClim, la participación de iNaturalist, la respuesta a crisis de Ushahidi, 
+                la colaboración de OpenStreetMap y la robustez técnica de KoBoToolbox, específicamente adaptada para 
+                el contexto rural de La Araucanía.
+            </p>
         </div>
-    </div>
-
-    <div class="leyenda">
-        <div class="insight-detalle">
-            <div class="insight-titulo">🚨 INSIGHT 1: Alertas Tempranas Críticas</div>
-            <div class="evaluacion">
-                <span>Complejidad:</span>
-                <span class="alta">ALTA</span>
-            </div>
-            <div class="evaluacion">
-                <span>Impacto:</span>
-                <span class="alta">ALTO</span>
-            </div>
-            <div class="justificacion">
-                <strong>Complejidad:</strong> Requiere integración de datos meteorológicos, sistemas de predicción avanzada, infraestructura tecnológica robusta y coordinación interinstitucional.<br>
-                <strong>Impacto:</strong> Puede prevenir daños significativos en infraestructura crítica (agua, electricidad) y proteger vidas humanas.
-            </div>
-        </div>
-
-        <div class="insight-detalle">
-            <div class="insight-titulo">📢 INSIGHT 2: Comunicación Híbrida Inclusiva</div>
-            <div class="evaluacion">
-                <span>Complejidad:</span>
-                <span class="media">MEDIA</span>
-            </div>
-            <div class="evaluacion">
-                <span>Impacto:</span>
-                <span class="alta">ALTO</span>
-            </div>
-            <div class="justificacion">
-                <strong>Complejidad:</strong> Combinar canales digitales y tradicionales es desafiante pero más implementable que sistemas técnicos complejos.<br>
-                <strong>Impacto:</strong> Garantiza que información crítica llegue a toda la comunidad, reduciendo vulnerabilidades por falta de comunicación.
-            </div>
-        </div>
-
-        <div class="insight-detalle">
-            <div class="insight-titulo">📱 INSIGHT 3: Tecnología Accesible Rural</div>
-            <div class="evaluacion">
-                <span>Complejidad:</span>
-                <span class="alta">ALTA</span>
-            </div>
-            <div class="evaluacion">
-                <span>Impacto:</span>
-                <span class="alta">ALTO</span>
-            </div>
-            <div class="justificacion">
-                <strong>Complejidad:</strong> Desarrollar para conectividad limitada, múltiples tipos de dispositivos y diferentes niveles de alfabetización digital.<br>
-                <strong>Impacto:</strong> Sin accesibilidad tecnológica real, la plataforma completa fallaría en el contexto rural de La Araucanía.
-            </div>
-        </div>
-
-        <div class="insight-detalle">
-            <div class="insight-titulo">🤝 INSIGHT 4: Confianza y Co-creación</div>
-            <div class="evaluacion">
-                <span>Complejidad:</span>
-                <span class="alta">ALTA</span>
-            </div>
-            <div class="evaluacion">
-                <span>Impacto:</span>
-                <span class="alta">ALTO</span>
-            </div>
-            <div class="justificacion">
-                <strong>Complejidad:</strong> Requiere procesos participativos extensos, cambio cultural, integración respetuosa de conocimientos locales y científicos.<br>
-                <strong>Impacto:</strong> Determinante absoluto del éxito o fracaso de toda la iniciativa de tecnología cívica.
-            </div>
-        </div>
-    </div>
-
-    <div class="footer">
-        <p><strong>Integrantes:</strong> Grupo 5 | <strong>Curso:</strong> Innovación y Emprendimiento III | <strong>Profesor:</strong> Gonzalo Andrés Arias Sanhueza</p>
-        <p><em>Fuente: Elaboración propia (2019)</em></p>
     </div>
 </body>
 </html>
