@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz de Vaciado de Hallazgos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            color: #2c5234;
+            margin-bottom: 10px;
+        }
+        .desafio {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-left: 4px solid #4CAF50;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .matriz-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .tematica {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .tematica-header {
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .tematica-content {
+            padding: 20px;
+            min-height: 300px;
+        }
+        .hallazgo {
+            background: #f8f9fa;
+            border-left: 3px solid #4CAF50;
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 4px;
+        }
+        .cita {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 8px;
+            padding: 8px;
+            background: #e3f2fd;
+            border-radius: 4px;
+        }
+        .fuente {
+            font-size: 0.8em;
+            color: #888;
+            text-align: right;
+            margin-top: 5px;
+        }
+        .insight {
+            background: #fff3e0;
+            border-left: 3px solid #ff9800;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 4px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>INSTRUMENTO | 1.1.4.1</h1>
+        <h2>Matriz de Vaciado de Hallazgos</h2>
+        <div class="desafio">
+            <strong>Desafío:</strong> Plataformas digitales colaborativas para identificar, evaluar y priorizar riesgos climáticos con información georreferenciada en las comunas de La Araucanía
+        </div>
+    </div>
+
+    <div class="matriz-container">
+        <div class="tematica">
+            <div class="tematica-header">
+                TEMÁTICA 1: GESTIÓN DE RIESGOS CLIMÁTICOS Y RECURSOS HÍDRICOS
+            </div>
+            <div class="tematica-content">
+                <div class="hallazgo">
+                    <div class="cita">"El problema que más le quita el sueño o que se repite todos los años"</div>
+                    <strong>Hallazgo:</strong> Los problemas climáticos recurrentes generan estrés continuo en los dirigentes comunitarios.
+                    <div class="fuente">- Entrevista Usuario (APR)</div>
+                </div>
+
+                <div class="hallazgo">
+                    <div class="cita">"Turbidez por lluvias, sequía estival, problemas con bombas y estanques"</div>
+                    <strong>Hallazgo:</strong> Los sistemas de agua potable rural enfrentan múltiples vulnerabilidades climáticas que afectan directamente el suministro.
+                    <div class="fuente">- Preparación Entrevista Usuario</div>
+                </div>
+
+                <div class="hallazgo">
+                    <div class="cita">"Viviendas con graves daños debido a la voladura de techos, interrupciones en el suministro eléctrico de hasta días"</div>
+                    <strong>Hallazgo:</strong> Los eventos climáticos extremos causan daños materiales significativos y cortes prolongados de servicios básicos.
+                    <div class="fuente">- Antecedentes del Desafío</div>
+                </div>
+
+                <div class="insight">
+                    <strong>Insight:</strong> Existe una necesidad crítica de sistemas de alerta temprana que permitan anticipar y mitigar los impactos de eventos climáticos en la infraestructura comunitaria.
+                </div>
+            </div>
+        </div>
+
+        <div class="tematica">
+            <div class="tematica-header">
+                TEMÁTICA 2: COMUNICACIÓN Y PARTICIPACIÓN CIUDADANA
+            </div>
+            <div class="tematica-content">
+                <div class="hallazgo">
+                    <div class="cita">"¿Cuál es el primer paso que da para avisarle a todos los vecinos? ¿Qué herramientas usa, un grupo de WhatsApp, llamados, puerta a puerta?"</div>
+                    <strong>Hallazgo:</strong> Los canales de comunicación actuales son informales y dependen de métodos tradicionales.
+                    <div class="fuente">- Preguntas Clave Usuario</div>
+                </div>
+
+                <div class="hallazgo">
+                    <div class="cita">"¿Cuál es la parte más difícil o dónde siente que el mensaje no llega a todos por igual?"</div>
+                    <strong>Hallazgo:</strong> Existen brechas en la comunicación que impiden que la información llegue equitativamente a toda la comunidad.
+                    <div class="fuente">- Preguntas Clave Usuario</div>
+                </div>
+
+                <div class="hallazgo">
+                    <div class="cita">"Barreras y facilitadores comunitarios, interfaces inclusivas"</div>
+                    <strong>Hallazgo:</strong> La participación digital requiere superar barreras tecnológicas y sociales específicas del contexto rural.
+                    <div class="fuente">- Preparación Entrevista Experto</div>
+                </div>
+
+                <div class="insight">
+                    <strong>Insight:</strong> Se necesita una estrategia de comunicación híbrida que combine canales digitales con métodos tradicionales para asegurar la inclusión de toda la comunidad.
+                </div>
+            </div>
+        </div>
+
+        <div class="tematica">
+            <div class="tematica-header">
+                TEMÁTICA 3: ACCESIBILIDAD TECNOLÓGICA Y BRECHA DIGITAL
+            </div>
+            <div class="tematica-content">
+                <div class="hallazgo">
+                    <div class="cita">"Conectividad limitada como La Araucanía, ¿cuáles son los 2 o 3 requerimientos técnicos no negociables?"</div>
+                    <strong>Hallazgo:</strong> Las limitaciones de conectividad rural requieren soluciones tecnológicas específicamente adaptadas.
+                    <div class="fuente">- Preguntas Clave Experto</div>
+                </div>
+
+                <div class="hallazgo">
+                    <div class="cita">"Diseño centrado en usuario rural, accesibilidad para diferentes edades, adaptación a dispositivos básicos"</div>
+                    <strong>Hallazgo:</strong> Las plataformas deben considerar la diversidad etaria y tecnológica de usuarios rurales.
+                    <div class="fuente">- Preparación Entrevista Experto</div>
+                </div>
+
+                <div class="hallazgo">
+                    <div class="cita">"¿Deberíamos priorizar una app móvil, una web simple, o incluso integración con WhatsApp?"</div>
+                    <strong>Hallazgo:</strong> La elección de plataforma tecnológica es crítica para la adopción en contextos rurales.
+                    <div class="fuente">- Preguntas Clave Experto</div>
+                </div>
+
+                <div class="insight">
+                    <strong>Insight:</strong> La solución tecnológica debe funcionar con conectividad intermitente y ser accesible desde dispositivos de gama baja para asegurar inclusión digital.
+                </div>
+            </div>
+        </div>
+
+        <div class="tematica">
+            <div class="tematica-header">
+                TEMÁTICA 4: INTEGRACIÓN DE CONOCIMIENTOS Y CONFIANZA
+            </div>
+            <div class="tematica-content">
+                <div class="hallazgo">
+                    <div class="cita">"Equilibrar el conocimiento técnico con la percepción local sin que uno domine al otro"</div>
+                    <strong>Hallazgo:</strong> Existe tensión entre el conocimiento científico-técnico y el saber local/ancestral que debe ser gestionada.
+                    <div class="fuente">- Preguntas Clave Experto</div>
+                </div>
+
+                <div class="hallazgo">
+                    <div class="cita">"¿Cuál es la barrera comunitaria o de confianza más común que hace fracasar este tipo de proyectos de 'tecnología cívica'?"</div>
+                    <strong>Hallazgo:</strong> Los proyectos de tecnología cívica enfrentan barreras de confianza que pueden determinar su éxito o fracaso.
+                    <div class="fuente">- Preguntas Clave Experto</div>
+                </div>
+
+                <div class="hallazgo">
+                    <div class="cita">"¿Qué sería lo más importante para que usted y los vecinos confíen en ella y la usen de verdad?"</div>
+                    <strong>Hallazgo:</strong> La confianza comunitaria es un factor determinante para la adopción de herramientas digitales.
+                    <div class="fuente">- Preguntas Clave Usuario</div>
+                </div>
+
+                <div class="insight">
+                    <strong>Insight:</strong> El éxito de la plataforma depende de construir confianza a través de la integración respetuosa del conocimiento local con información técnica, y mediante procesos de co-creación comunitaria.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Integrantes:</strong> Grupo 5 | <strong>Curso:</strong> Innovación y Emprendimiento III | <strong>Profesor:</strong> Gonzalo Andrés Arias Sanhueza</p>
+        <p><em>Fuente: Elaboración propia basada en entrevistas a usuarios y expertos, y análisis del desafío (2025)</em></p>
+    </div>
+</body>
+</html>
