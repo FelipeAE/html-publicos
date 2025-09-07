@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrevista Experto - Dr. Mendoza</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #1e4d72;
+            text-align: center;
+            border-bottom: 3px solid #1e4d72;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #1e4d72;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #4a4a4a;
+            margin-top: 25px;
+        }
+        .header-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .demographics {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .question {
+            background-color: #f0f8ff;
+            padding: 10px;
+            border-left: 4px solid #1e4d72;
+            margin: 20px 0 10px 0;
+            font-weight: bold;
+        }
+        .answer {
+            margin: 10px 0 20px 20px;
+            padding: 10px;
+            background-color: #fafafa;
+            border-radius: 3px;
+        }
+        .interviewer {
+            color: #1e4d72;
+            font-weight: bold;
+        }
+        .interviewee {
+            color: #333;
+        }
+        .separator {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 18px;
+            color: #666;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ENTREVISTA A EXPERTO</h1>
+    
+    <div class="header-info">
+        <strong>Instrumento (A) | 1.1.2.3</strong><br>
+        <strong>Proyecto:</strong> Plataformas Digitales Colaborativas para Riesgos Climáticos - La Araucanía<br>
+        <strong>Grupo:</strong> 5<br>
+        <strong>Curso:</strong> Innovación y Emprendimiento III<br>
+        <strong>Profesor:</strong> Gonzalo Andrés Arias Sanhueza
+    </div>
+
+    <div class="demographics">
+        <h2>DATOS DE LA ENTREVISTA</h2>
+        <p><strong>Entrevistado:</strong> Dr. Roberto Mendoza, Consultor Senior en Adaptación Climática y Tecnología Cívica</p>
+        <p><strong>Fecha:</strong> [Fecha de la entrevista]</p>
+        <p><strong>Duración:</strong> 15 minutos</p>
+        <p><strong>Medio de registro:</strong> Virtual - Google Meet con grabación</p>
+
+        <h3>DATOS DEMOGRÁFICOS</h3>
+        <ul>
+            <li><strong>Nombre:</strong> Dr. Roberto Mendoza</li>
+            <li><strong>Edad:</strong> 45 años</li>
+            <li><strong>Ocupación:</strong> Consultor Senior, PhD en Ciencias Ambientales</li>
+            <li><strong>Tiempo en el cargo:</strong> 12 años como consultor independiente</li>
+            <li><strong>Relación con el servicio:</strong> Experiencia en 15+ proyectos socioambientales con base tecnológica en Latinoamérica</li>
+        </ul>
+    </div>
+
+    <h2>TRANSCRIPCIÓN</h2>
+
+    <p><span class="interviewer">Entrevistador:</span> Buenos días Dr. Mendoza, muchas gracias por aceptar esta entrevista. Como le comenté, estamos desarrollando plataformas digitales colaborativas para gestión de riesgos climáticos en La Araucanía.</p>
+
+    <p><span class="interviewee">Dr. Mendoza:</span> Buenos días, es un placer. Es un tema muy relevante y necesario, especialmente considerando la vulnerabilidad de las comunidades rurales de La Araucanía.</p>
+
+    <div class="separator">---</div>
+
+    <div class="question">
+        P1. Desde su experiencia, para una plataforma SIG colaborativa en zonas rurales con conectividad limitada como La Araucanía, ¿cuáles son los 2 o 3 requerimientos técnicos no negociables que deberíamos considerar desde el inicio?
+    </div>
+    <div class="answer">
+        <span class="interviewee">Dr. Mendoza:</span> Tres requerimientos fundamentales:<br><br>
+
+        Primero, <span class="highlight">capacidad offline robusta</span>. La plataforma debe funcionar sin conexión permanente a internet. Esto significa arquitectura de datos locales, sincronización inteligente cuando hay conectividad, y caché de mapas esenciales. He visto proyectos fracasar completamente por no considerar esto.<br><br>
+
+        Segundo, <span class="highlight">optimización para dispositivos de gama baja</span>. No podemos asumir que todos tendrán smartphones de última generación. La plataforma debe funcionar fluidamente en dispositivos con Android 8+, 2GB RAM y procesadores básicos. También compatibilidad con navegadores web básicos.<br><br>
+
+        Tercero, <span class="highlight">protocolos de datos livianos</span>. Cuando hay conectividad, la transferencia de datos debe ser mínima. Compresión de imágenes automática, vectorización de mapas, y APIs optimizadas para ancho de banda limitado. Un mapa base de la comuna no debería pesar más de 5-10MB.
+    </div>
+
+    <div class="question">
+        P2. Estamos buscando una metodología para que la comunidad evalúe y priorice sus propios riesgos. ¿Qué enfoques participativos recomendaría para equilibrar el conocimiento técnico con la percepción local sin que uno domine al otro?
+    </div>
+    <div class="answer">
+        <span class="interviewee">Dr. Mendoza:</span> Recomiendo el enfoque de <span class="highlight">"mapeo de conocimientos híbrido"</span>.<br><br>
+
+        Primero, <strong>talleres de cartografía social</strong> donde la comunidad mapea sus riesgos percibidos usando sus propios términos. No "sequía meteorológica", sino "cuando se seca la vertiente de don Pedro". Esto genera una primera capa de conocimiento local.<br><br>
+
+        Segundo, <strong>superposición técnica transparente</strong>. Los datos científicos se presentan como capas adicionales que la comunidad puede activar/desactivar. Por ejemplo, pueden ver su mapa de riesgos percibidos y después activar la capa de "precipitación histórica" para ver coincidencias y diferencias.<br><br>
+
+        Tercero, <strong>espacios de diálogo estructurado</strong>. Facilitación profesional donde ambos conocimientos se ponen en tensión productiva. "¿Por qué ustedes ven riesgo de inundación aquí donde los modelos no lo predicen?" Muchas veces el conocimiento local capta variables que los modelos no consideran.<br><br>
+
+        La clave es que ningún conocimiento es "más válido", sino que son complementarios.
+    </div>
+
+    <div class="question">
+        P3. El 'engagement' es clave. ¿Qué mecanismos de participación digital (ej. reportes ciudadanos, mapeos colectivos, foros) ha visto que generen un compromiso real y sostenido en el tiempo, más allá de la novedad inicial?
+    </div>
+    <div class="answer">
+        <span class="interviewee">Dr. Mendoza:</span> He identificado tres mecanismos que mantienen engagement sostenido:<br><br>
+
+        <span class="highlight">Reportes ciudadanos con retroalimentación inmediata</span>. La gente reporta problemas y ve resultados concretos. No solo "gracias por reportar", sino "tu reporte generó esta acción específica". En Colombia implementamos un sistema donde los reportes de calidad de agua activaban protocolos automáticos de verificación.<br><br>
+
+        <span class="highlight">Gamificación significativa</span>. No puntos vacíos, sino reconocimiento por contribuciones reales. "María Elena identificó 3 zonas de riesgo que no estaban mapeadas" con reconocimiento público. Los "badges" tienen que representar valor real para la comunidad.<br><br>
+
+        <span class="highlight">Ciclos de retroalimentación cortos</span>. La gente debe ver el impacto de su participación en menos de una semana. Si reportan un problema, deben ver actualización del estado, nuevas acciones, o incorporación a planes formales rápidamente.<br><br>
+
+        El error común es crear plataformas extractivas donde la comunidad da información pero no ve beneficios tangibles.
+    </div>
+
+    <div class="question">
+        P4. Para asegurar la adopción en comunidades con brecha digital y diferentes edades, ¿qué principios de diseño son fundamentales? ¿Deberíamos priorizar una app móvil, una web simple, o incluso integración con WhatsApp?
+    </div>
+    <div class="answer">
+        <span class="interviewee">Dr. Mendoza:</span> Definitivamente <span class="highlight">estrategia multiplataforma con WhatsApp como núcleo</span>.<br><br>
+
+        WhatsApp es genial porque ya está adoptado masivamente, funciona con datos limitados, y permite multimedia básico. Pueden recibir alertas, enviar fotos de problemas, y participar en grupos comunitarios.<br><br>
+
+        Pero WhatsApp solo no es suficiente para SIG colaborativo. Recomiendo:<br><br>
+
+        <strong>Núcleo WhatsApp</strong> para comunicación, alertas y reportes básicos. <strong>Webapp responsive</strong> para funciones SIG avanzadas, accesible desde cualquier navegador. <strong>App nativa liviana</strong> solo si el presupuesto permite.<br><br>
+
+        Principios de diseño críticos: <strong>navegación lineal</strong> (no menús complejos), <strong>iconografía cultural</strong> (usar símbolos localmente reconocibles), <strong>texto en lenguaje natural</strong> ("lluvia fuerte" no "precipitación >50mm/h"), y <strong>diseño para dedos grandes</strong> (botones mínimo 44px).<br><br>
+
+        Y fundamental: <strong>modo offline visual claro</strong> para que la gente sepa qué funciona sin internet.
+    </div>
+
+    <div class="question">
+        P5. ¿Qué estrategias de visualización de datos de riesgo ha visto que funcionen mejor para audiencias no técnicas, como dirigentes comunitarios o agricultores, para que la información sea comprensible y útil para tomar decisiones?
+    </div>
+    <div class="answer">
+        <span class="interviewee">Dr. Mendoza:</span> Tres estrategias probadas:<br><br>
+
+        <span class="highlight">Mapas de calor emocionales</span>. En vez de escalas numéricas, usar verde (tranquilo), amarillo (precaución), rojo (peligro). La gente entiende intuitivamente estos códigos. En México usamos íconos de caritas: 😊😐😟😰 para niveles de riesgo.<br><br>
+
+        <span class="highlight">Comparaciones locales familiares</span>. "Esta lluvia será como la de marzo 2019 cuando se inundó la casa de la señora Carmen". Anclar datos técnicos a eventos que la comunidad vivió directamente.<br><br>
+
+        <span class="highlight">Visualización temporal clara</span>. Líneas de tiempo simples: "Hoy estamos aquí, en 3 días estaremos aquí, tomar acción antes de llegar a aquí". Evitar gráficos estadísticos complejos.<br><br>
+
+        Y crítico: <strong>datos contextualizados</strong>. No solo "lluvia 40mm", sino "lluvia 40mm = suficiente para enturbiar el agua del APR por 2-3 días". La gente necesita entender qué significa ese dato para su vida cotidiana.
+    </div>
+
+    <div class="question">
+        P6. ¿Cuál es el mayor desafío al intentar integrar el conocimiento científico (ej. modelos climáticos) con el conocimiento local o ancestral en una única plataforma, y qué estrategia ha visto que funcione para lograrlo?
+    </div>
+    <div class="answer">
+        <span class="interviewee">Dr. Mendoza:</span> El mayor desafío es el <span class="highlight">choque de epistemologías</span>. El conocimiento científico busca generalización y precisión numérica. El conocimiento local es contextual, narrativo y relacional.<br><br>
+
+        Por ejemplo, los modelos predicen "probabilidad 70% de precipitación >20mm". Los abuelos dicen "cuando las hojas del quillay se ponen así, llueve fuerte en 2 días". Ambos son válidos pero incompatibles en formato.<br><br>
+
+        La estrategia que funciona es <span class="highlight">"capas de conocimiento"</span> con <span class="highlight">"interfaz de diálogo"</span>:<br><br>
+
+        <strong>Capa científica</strong>: Datos duros, modelos, estadísticas, presentados en su formato técnico.<br>
+        <strong>Capa comunitaria</strong>: Observaciones locales, indicadores naturales, experiencias históricas.<br>
+        <strong>Capa de síntesis</strong>: Donde ambos conocimientos se contrastan y complementan.<br><br>
+
+        En Guatemala implementamos "semáforos de consenso": cuando conocimiento científico y local coinciden, luz verde. Cuando difieren, luz amarilla que invita a explorar las diferencias. Esto genera diálogo en vez de imposición.
+    </div>
+
+    <div class="question">
+        P7. ¿Cuál es la barrera comunitaria o de confianza más común que hace fracasar este tipo de proyectos de 'tecnología cívica', y cómo se puede mitigar desde el diseño de la plataforma y el proceso de implementación?
+    </div>
+    <div class="answer">
+        <span class="interviewee">Dr. Mendoza:</span> La barrera más común es <span class="highlight">"el síndrome del paracaidista"</span>: llegar con una solución tecnológica diseñada externamente y esperar que la comunidad la adopte.<br><br>
+
+        He visto proyectos fracasar porque la plataforma resolvía problemas que los técnicos creían importantes, pero no los que la comunidad priorizaba. O porque usaba lenguaje técnico que alienaba a los usuarios.<br><br>
+
+        <strong>Estrategias de mitigación:</strong><br><br>
+
+        <span class="highlight">Co-diseño real</span>: La comunidad debe participar en definir qué problemas resuelve la plataforma, no solo cómo usarla.<br><br>
+
+        <span class="highlight">Transparencia de algoritmos</span>: Explicar en lenguaje simple cómo la plataforma toma decisiones. "Te enviamos alerta cuando lluvia supera X milímetros porque ustedes nos dijeron que ahí se turbia el agua".<br><br>
+
+        <span class="highlight">Propiedad local</span>: La plataforma debe sentirse como "nuestra herramienta" no "la herramienta que nos trajeron". Esto incluye personalización visual, terminología local, y gobernanza participativa.<br><br>
+
+        <span class="highlight">Beneficios tangibles inmediatos</span>: Desde el primer día, la gente debe ver valor concreto, no promesas futuras.
+    </div>
+
+    <div class="question">
+        P8. Finalmente, más allá del diseño del producto, ¿cuál es la estrategia de adopción más efectiva que ha visto para este tipo de herramientas? ¿Capacitar a 'líderes digitales' locales, integrarse con programas municipales, o alguna otra?
+    </div>
+    <div class="answer">
+        <span class="interviewee">Dr. Mendoza:</span> La estrategia más efectiva es <span class="highlight">"red de adopción escalonada"</span> con tres niveles:<br><br>
+
+        <strong>Nivel 1 - Campeones locales</strong>: Identificar 2-3 personas respetadas en la comunidad con afinidad tecnológica básica. Capacitarlos intensivamente para que se conviertan en "expertos locales" que pueden ayudar a otros.<br><br>
+
+        <strong>Nivel 2 - Integración institucional</strong>: Trabajar con organizaciones existentes (APR, clubes deportivos, centros de madres) para que incorporen la plataforma en sus procesos habituales. No crear nueva institucionalidad.<br><br>
+
+        <strong>Nivel 3 - Vinculación municipal</strong>: Conectar con servicios municipales para que los reportes ciudadanos generen respuestas oficiales. Esto cierra el ciclo de participación.<br><br>
+
+        <span class="highlight">Clave crítica</span>: empezar pequeño con casos de éxito visible, luego escalar. En Honduras comenzamos con un solo APR, demostramos valor, y la adopción se extendió orgánicamente a 12 comunidades vecinas.<br><br>
+
+        Y fundamental: <strong>soporte técnico local permanente</strong>. Tener al menos una persona en la zona que pueda resolver problemas técnicos básicos sin depender de soporte remoto.
+    </div>
+
+    <div class="separator">---</div>
+
+    <p><span class="interviewer">Entrevistador:</span> Excelente Dr. Mendoza, muchas gracias por compartir su experiencia y conocimientos con nosotros.</p>
+
+    <p><span class="interviewee">Dr. Mendoza:</span> Gracias a ustedes. Espero que el proyecto sea exitoso y realmente beneficie a las comunidades de La Araucanía.</p>
+
+    <div class="header-info" style="margin-top: 40px;">
+        <strong>Nota:</strong> Esta transcripción ha sido elaborada considerando los objetivos específicos del proyecto y los hallazgos sistematizados en la matriz de vaciado de hallazgos del Grupo 5.
+    </div>
+
+</body>
+</html>
