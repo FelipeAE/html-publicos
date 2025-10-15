@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Clasificación de Ideas</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .title {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 700px;
+            border: 3px solid #34495e;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #f8f9fa 25%, transparent 25%), 
+                        linear-gradient(-45deg, #f8f9fa 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #f8f9fa 75%), 
+                        linear-gradient(-45deg, transparent 75%, #f8f9fa 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+        .axis-label {
+            position: absolute;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+        .axis-label.top { top: 10px; left: 50%; transform: translateX(-50%); }
+        .axis-label.bottom { bottom: 10px; left: 50%; transform: translateX(-50%); }
+        .axis-label.left { left: 10px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
+        .axis-label.right { right: 10px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+        
+        .quadrant-label {
+            position: absolute;
+            font-weight: bold;
+            font-size: 1em;
+            color: #2c3e50;
+            text-align: center;
+            padding: 5px;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.8);
+        }
+        .zona-optima { top: 20px; right: 20px; background: rgba(39, 174, 96, 0.2); color: #27ae60; }
+        .innovador-dificil { top: 20px; left: 20px; background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
+        .facil-comun { bottom: 20px; right: 20px; background: rgba(52, 152, 219, 0.2); color: #3498db; }
+        .evitar { bottom: 20px; left: 20px; background: rgba(149, 165, 166, 0.2); color: #95a5a6; }
+
+        .center-lines {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% - 40px);
+            height: calc(100% - 40px);
+        }
+        .center-lines::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #34495e;
+        }
+        .center-lines::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #34495e;
+        }
+
+        .idea {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.7em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .idea:hover {
+            transform: scale(1.3);
+            z-index: 10;
+        }
+
+        /* Colores según clasificación */
+        .alta-fact-alta-orig { background: #27ae60; } /* Verde - Zona Óptima */
+        .alta-fact-media-orig { background: #3498db; } /* Azul - Fácil pero Común */
+        .media-fact-alta-orig { background: #e67e22; } /* Naranja - Media Factibilidad + Alta Originalidad */
+        .media-fact-media-orig { background: #9b59b6; } /* Púrpura - Media-Media */
+        .baja-fact-alta-orig { background: #e74c3c; } /* Rojo - Innovador pero Difícil */
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            white-space: nowrap;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .insights-container {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .insight-box {
+            background: #f8f9fa;
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .insight-title {
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+        .insight-ideas {
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">Matriz de Clasificación de Ideas</div>
+            <div class="subtitle">Sistema de Alertas Tempranas para Comunidades Rurales de La Araucanía</div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color alta-fact-alta-orig"></div>
+                <span><strong>Alta Factibilidad + Alta Originalidad</strong> (Zona Óptima)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color alta-fact-media-orig"></div>
+                <span><strong>Alta Factibilidad + Media Originalidad</strong> (Fácil pero Común)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color media-fact-alta-orig"></div>
+                <span><strong>Media Factibilidad + Alta Originalidad</strong></span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color media-fact-media-orig"></div>
+                <span><strong>Media Factibilidad + Media Originalidad</strong></span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color baja-fact-alta-orig"></div>
+                <span><strong>Baja Factibilidad + Alta Originalidad</strong> (Innovador pero Difícil)</span>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <div class="axis-label top">(+) Original</div>
+            <div class="axis-label bottom">(-) Original</div>
+            <div class="axis-label left">(-) Factible</div>
+            <div class="axis-label right">(+) Factible</div>
+
+            <div class="quadrant-label zona-optima">ZONA ÓPTIMA</div>
+            <div class="quadrant-label innovador-dificil">INNOVADOR PERO DIFÍCIL</div>
+            <div class="quadrant-label facil-comun">FÁCIL PERO COMÚN</div>
+            <div class="quadrant-label evitar">EVITAR</div>
+
+            <div class="center-lines"></div>
+
+            <!-- ZONA ÓPTIMA: Alta Factibilidad + Alta Originalidad -->
+            <div class="idea alta-fact-alta-orig" style="top: 15%; right: 25%;" data-tooltip="11. Chatbot Guardián Rural por WhatsApp">11</div>
+            <div class="idea alta-fact-alta-orig" style="top: 25%; right: 20%;" data-tooltip="13. Banco de Alertas de Audio Pre-grabadas">13</div>
+            <div class="idea alta-fact-alta-orig" style="top: 30%; right: 15%;" data-tooltip="20. Automatización de Alertas Meteorológicas">20</div>
+            <div class="idea alta-fact-alta-orig" style="top: 20%; right: 30%;" data-tooltip="21. Sistema de Faros Comunitarios con Luces">21</div>
+            <div class="idea alta-fact-alta-orig" style="top: 35%; right: 25%;" data-tooltip="22. Red de Pluviómetros Artesanales Conectados">22</div>
+            <div class="idea alta-fact-alta-orig" style="top: 40%; right: 20%;" data-tooltip="24. Sistema de Testigos de Crecida Fotografiados">24</div>
+            <div class="idea alta-fact-alta-orig" style="top: 25%; right: 35%;" data-tooltip="25. Cadena de Llamadas Semi-Automatizada">25</div>
+
+            <!-- FÁCIL PERO COMÚN: Alta Factibilidad + Media Originalidad -->
+            <div class="idea alta-fact-media-orig" style="bottom: 30%; right: 20%;" data-tooltip="2. Grupo Piloto de WhatsApp">2</div>
+            <div class="idea alta-fact-media-orig" style="bottom: 35%; right: 25%;" data-tooltip="4. Plantillas de Alerta para Radios y Pizarras">4</div>
+            <div class="idea alta-fact-media-orig" style="bottom: 25%; right: 30%;" data-tooltip="7. Flujograma de Comunicación">7</div>
+            <div class="idea alta-fact-media-orig" style="bottom: 40%; right: 15%;" data-tooltip="8. Campaña de Prevención por WhatsApp">8</div>
+            <div class="idea alta-fact-media-orig" style="bottom: 20%; right: 25%;" data-tooltip="9. Directorio de Emergencia Imprimible">9</div>
+            <div class="idea alta-fact-media-orig" style="bottom: 35%; right: 35%;" data-tooltip="17. Directorio con Código QR">17</div>
+            <div class="idea alta-fact-media-orig" style="bottom: 30%; right: 35%;" data-tooltip="23. Biblioteca de Respuestas WhatsApp Business">23</div>
+            <div class="idea alta-fact-media-orig" style="bottom: 25%; right: 15%;" data-tooltip="28. Verificación de Bienestar Post-Emergencia">28</div>
+
+            <!-- MEDIA FACTIBILIDAD + ALTA ORIGINALIDAD -->
+            <div class="idea media-fact-alta-orig" style="top: 15%; left: 35%;" data-tooltip="1. Protocolo de Corresponsales de Riesgo">1</div>
+            <div class="idea media-fact-alta-orig" style="top: 25%; left: 30%;" data-tooltip="10. Kit de Simulación de Emergencia">10</div>
+            <div class="idea media-fact-alta-orig" style="top: 35%; left: 25%;" data-tooltip="15. Simulacro Digital Interactivo">15</div>
+            <div class="idea media-fact-alta-orig" style="top: 20%; left: 25%;" data-tooltip="18. Micro-Curso de Prevención por WhatsApp">18</div>
+            <div class="idea media-fact-alta-orig" style="top: 30%; left: 35%;" data-tooltip="26. Alertas por Radio con Activación Remota">26</div>
+            <div class="idea media-fact-alta-orig" style="top: 40%; left: 30%;" data-tooltip="27. Red de Puntos Seguros Certificados">27</div>
+            <div class="idea media-fact-alta-orig" style="top: 25%; left: 40%;" data-tooltip="29. Archivo Fotográfico Comparativo">29</div>
+            <div class="idea media-fact-alta-orig" style="top: 35%; left: 35%;" data-tooltip="30. Sistema de Micro-Tareas Gamificadas">30</div>
+
+            <!-- MEDIA FACTIBILIDAD + MEDIA ORIGINALIDAD -->
+            <div class="idea media-fact-media-orig" style="bottom: 30%; left: 35%;" data-tooltip="3. Mapa de Riesgos en Google My Maps">3</div>
+            <div class="idea media-fact-media-orig" style="bottom: 25%; left: 30%;" data-tooltip="5. Prototipo Visual de una App">5</div>
+            <div class="idea media-fact-media-orig" style="bottom: 35%; left: 25%;" data-tooltip="6. Formulario de Reporte con Google Forms">6</div>
+            <div class="idea media-fact-media-orig" style="bottom: 40%; left: 35%;" data-tooltip="12. Mapa de Vulnerabilidad Dinámico">12</div>
+
+            <!-- INNOVADOR PERO DIFÍCIL: Baja Factibilidad + Alta Originalidad -->
+            <div class="idea baja-fact-alta-orig" style="top: 20%; left: 15%;" data-tooltip="14. Prototipo Funcional No-Code">14</div>
+            <div class="idea baja-fact-alta-orig" style="top: 30%; left: 20%;" data-tooltip="16. Dashboard Comunitario de Riesgos">16</div>
+            <div class="idea baja-fact-alta-orig" style="top: 25%; left: 10%;" data-tooltip="19. Red de Monitoreo Eléctrico IoT">19</div>
+        </div>
+
+        <div class="tooltip" id="tooltip"></div>
+
+        <div class="insights-container">
+            <div class="insight-box">
+                <div class="insight-title">🎯 ZONA ÓPTIMA - Priorizar Estas Ideas (7 ideas)</div>
+                <div class="insight-ideas">
+                    <strong>11.</strong> Chatbot "Guardián Rural" por WhatsApp<br>
+                    <strong>13.</strong> Banco de Alertas de Audio Pre-grabadas<br>
+                    <strong>20.</strong> Automatización de Alertas Meteorológicas<br>
+                    <strong>21.</strong> Sistema de "Faros Comunitarios" con Luces<br>
+                    <strong>22.</strong> Red de Pluviómetros Artesanales Conectados<br>
+                    <strong>24.</strong> Sistema de "Testigos de Crecida" Fotografiados<br>
+                    <strong>25.</strong> Cadena de Llamadas Semi-Automatizada
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-title">💡 IMPLEMENTACIÓN RÁPIDA - Ideas Complementarias (8 ideas)</div>
+                <div class="insight-ideas">
+                    <strong>2.</strong> Grupo Piloto de WhatsApp<br>
+                    <strong>4.</strong> Plantillas de Alerta para Radios y Pizarras<br>
+                    <strong>7.</strong> Flujograma de Comunicación<br>
+                    <strong>9.</strong> Directorio de Emergencia Imprimible<br>
+                    <strong>17.</strong> Directorio con Código QR<br>
+                    <strong>23.</strong> Biblioteca de Respuestas WhatsApp Business<br>
+                    <strong>28.</strong> Verificación de Bienestar Post-Emergencia
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-title">🔄 DESARROLLO A MEDIANO PLAZO (8 ideas)</div>
+                <div class="insight-ideas">
+                    Ideas originales pero que requieren mayor capacitación, coordinación o recursos:<br>
+                    <strong>1.</strong> Protocolo de Corresponsales de Riesgo<br>
+                    <strong>10.</strong> Kit de Simulación de Emergencia<br>
+                    <strong>18.</strong> Micro-Curso de Prevención<br>
+                    <strong>26.</strong> Alertas por Radio con Activación Remota<br>
+                    <strong>29.</strong> Archivo Fotográfico Comparativo
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tooltip functionality
+        const ideas = document.querySelectorAll('.idea');
+        const tooltip = document.getElementById('tooltip');
+
+        ideas.forEach(idea => {
+            idea.addEventListener('mouseenter', (e) => {
+                tooltip.textContent = e.target.dataset.tooltip;
+                tooltip.style.opacity = '1';
+            });
+
+            idea.addEventListener('mousemove', (e) => {
+                tooltip.style.left = e.pageX + 10 + 'px';
+                tooltip.style.top = e.pageY + 10 + 'px';
+            });
+
+            idea.addEventListener('mouseleave', () => {
+                tooltip.style.opacity = '0';
+            });
+        });
+    </script>
+</body>
+</html>
