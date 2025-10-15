@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Propuesta de Valor y Métricas Claves</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .title {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .description {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .canvas-container {
+            background: #fff3cd;
+            border: 3px solid #ffeaa7;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .top-section {
+            display: grid;
+            grid-template-columns: 200px 1fr 1fr 200px 200px;
+            gap: 15px;
+            margin-bottom: 15px;
+            min-height: 180px;
+        }
+        
+        .side-section {
+            background: #6c757d;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .main-section {
+            background: #fff;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .necesidades {
+            background: #e3f2fd;
+            border: 2px dashed #2196f3;
+        }
+        
+        .atributos {
+            background: #e8f5e8;
+            border: 2px dashed #4caf50;
+        }
+        
+        .content-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .content-list li {
+            background: rgba(255,255,255,0.8);
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 5px;
+            font-size: 0.9em;
+            line-height: 1.3;
+        }
+        
+        .middle-section {
+            display: grid;
+            grid-template-columns: 200px 1fr 200px;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .propuesta-valor {
+            grid-column: 2;
+            background: #fff9c4;
+            border: 3px solid #fdd835;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .propuesta-title {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #f57f17;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .propuesta-text {
+            font-size: 1.2em;
+            line-height: 1.5;
+            color: #f57f17;
+            font-weight: 600;
+        }
+        
+        .formula-section {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .formula-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .formula-item {
+            display: flex;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+        
+        .formula-label {
+            font-weight: bold;
+            color: #6c757d;
+            min-width: 100px;
+            margin-right: 15px;
+        }
+        
+        .formula-content {
+            flex: 1;
+            color: #495057;
+            line-height: 1.4;
+        }
+        
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 200px 1fr 200px;
+            gap: 15px;
+        }
+        
+        .metricas {
+            grid-column: 2;
+            background: #e1f5fe;
+            border: 2px solid #01bcd4;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .metricas-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #006064;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        
+        .metricas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .metrica-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .metrica-numero {
+            font-size: 2em;
+            font-weight: bold;
+            color: #00838f;
+            display: block;
+        }
+        
+        .metrica-texto {
+            font-size: 0.9em;
+            color: #37474f;
+            margin-top: 5px;
+            line-height: 1.3;
+        }
+        
+
+        
+        @media (max-width: 1200px) {
+            .top-section {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto auto;
+            }
+            .middle-section {
+                grid-template-columns: 1fr;
+            }
+            .bottom-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">INSTRUMENTO | 2.1.4.4</div>
+            <div class="subtitle">Panel de Propuesta de Valor y Métricas Claves</div>
+            <div class="description">Sistema Integrado de Alertas Tempranas - La Araucanía</div>
+        </div>
+
+        <div class="canvas-container">
+            <div class="top-section">
+                <div class="side-section">
+                    <div class="section-title">Problema</div>
+                    <div style="font-size: 0.8em;">
+                        Los sistemas actuales de gestión de riesgos climáticos son reactivos. Las comunidades rurales enfrentan eventos extremos sin anticipación, causando daños en infraestructura crítica.
+                    </div>
+                </div>
+                
+                <div class="main-section necesidades">
+                    <div class="section-title">Necesidades</div>
+                    <ul class="content-list">
+                        <li><strong>Anticipación:</strong> "El problema que más me quita el sueño que se repite todos los años"</li>
+                        <li><strong>Comunicación Efectiva:</strong> "Que el mensaje llegue a todos por igual"</li>
+                        <li><strong>Información Crítica:</strong> "Una 'bola de cristal' con información clave"</li>
+                        <li><strong>Herramientas Confiables:</strong> "Que confíen en ella y la usen de verdad"</li>
+                        <li><strong>Protección:</strong> Evitar daños a sistemas de agua y electricidad</li>
+                    </ul>
+                </div>
+                
+                <div class="main-section atributos">
+                    <div class="section-title">Atributos</div>
+                    <ul class="content-list">
+                        <li><strong>🚨 Anticipatorio:</strong> Detecta peligros antes de que ocurran</li>
+                        <li><strong>🌐 Inclusivo:</strong> Llega a todos sin exclusión tecnológica</li>
+                        <li><strong>🔧 Accesible:</strong> Funciona con recursos rurales disponibles</li>
+                        <li><strong>🤝 Confiable:</strong> Genera confianza través participación</li>
+                    </ul>
+                </div>
+                
+                <div class="side-section">
+                    <div class="section-title">Ventaja Especial</div>
+                    <div style="font-size: 0.8em;">
+                        Primera red híbrida de alertas tempranas diseñada específicamente para comunidades rurales con conectividad limitada
+                    </div>
+                </div>
+                
+                <div class="side-section">
+                    <div class="section-title">Segmento</div>
+                    <div style="font-size: 0.8em;">
+                        Organizaciones comunitarias rurales (Comités APR) y actores locales en La Araucanía
+                    </div>
+                </div>
+            </div>
+            
+            <div class="middle-section">
+                <div class="side-section">
+                    <div class="section-title">Solución</div>
+                    <div style="font-size: 0.8em;">
+                        Red de Faros Comunitarios Inteligentes: Sistema integrado de alertas tempranas y comunicación híbrida
+                    </div>
+                </div>
+                
+                <div class="propuesta-valor">
+                    <div class="propuesta-title">Propuesta de Valor</div>
+                    <div class="propuesta-text">
+                        "Una Red de Faros Comunitarios Inteligentes que anticipa, comunica e incluye a toda la comunidad rural para proteger su infraestructura crítica de agua y electricidad ante eventos climáticos extremos"
+                    </div>
+                </div>
+                
+                <div class="side-section">
+                    <div class="section-title">Canales</div>
+                    <div style="font-size: 0.8em;">
+                        • WhatsApp Business<br>
+                        • Radio comunitaria<br>
+                        • Señales luminosas<br>
+                        • Llamadas telefónicas<br>
+                        • Códigos QR
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bottom-section">
+                <div class="side-section">
+                    <div class="section-title">Estructura Costes</div>
+                    <div style="font-size: 0.8em;">
+                        • Desarrollo tecnológico<br>
+                        • Capacitación comunitaria<br>
+                        • Equipos básicos (luces LED, sensores)<br>
+                        • Mantenimiento sistema
+                    </div>
+                </div>
+                
+                <div class="metricas">
+                    <div class="metricas-title">Métricas Clave</div>
+                    <div class="metricas-grid">
+                        <div class="metrica-card">
+                            <span class="metrica-numero">60%</span>
+                            <div class="metrica-texto">Reducción de daños a infraestructura crítica</div>
+                        </div>
+                        <div class="metrica-card">
+                            <span class="metrica-numero">48h</span>
+                            <div class="metrica-texto">Tiempo de anticipación de alertas</div>
+                        </div>
+                        <div class="metrica-card">
+                            <span class="metrica-numero">95%</span>
+                            <div class="metrica-texto">Cobertura de hogares alcanzados</div>
+                        </div>
+                        <div class="metrica-card">
+                            <span class="metrica-numero">75%</span>
+                            <div class="metrica-texto">Adopción sostenida después de 6 meses</div>
+                        </div>
+                        <div class="metrica-card">
+                            <span class="metrica-numero">30min</span>
+                            <div class="metrica-texto">Tiempo de respuesta comunitaria</div>
+                        </div>
+                        <div class="metrica-card">
+                            <span class="metrica-numero">80%</span>
+                            <div class="metrica-texto">Nivel de confianza en el sistema</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="side-section">
+                    <div class="section-title">Flujo Ingresos</div>
+                    <div style="font-size: 0.8em;">
+                        • Financiamiento gubernamental<br>
+                        • Fondos de adaptación climática<br>
+                        • Programas municipales<br>
+                        • Cooperación internacional
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="formula-section">
+            <div class="formula-title">🔧 Construcción de la Propuesta de Valor</div>
+            <div class="formula-item">
+                <div class="formula-label">¿Qué es?</div>
+                <div class="formula-content">Una <strong>Red de Faros Comunitarios Inteligentes</strong></div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-label">¿Cómo es?</div>
+                <div class="formula-content"><strong>Anticipatoria</strong> (alerta con 48h), <strong>Inclusiva</strong> (múltiples canales), <strong>Accesible</strong> (tecnología simple) y <strong>Confiable</strong> (participación comunitaria)</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-label">¿Por qué?</div>
+                <div class="formula-content">Porque resuelve la necesidad crítica de anticipación ante eventos climáticos y comunicación efectiva que llegue a toda la comunidad rural</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-label">¿Para qué?</div>
+                <div class="formula-content">Para <strong>proteger la infraestructura crítica</strong> (agua y electricidad) y reducir en un 60% los daños causados por eventos climáticos extremos en comunidades rurales de La Araucanía</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
